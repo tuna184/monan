@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Công thức món ăn</title>
+  <script type="module">
+    // === Firebase SDK (phiên bản module) ===
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    // ✅ Cấu hình Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyDBOrio7q3anFeIL6khEAThALkdmNItI8U",
+      authDomain: "aaaa-298ec.firebaseapp.com",
+      projectId: "aaaa-298ec",
+      storageBucket: "aaaa-298ec.firebasestorage.app",
+      messagingSenderId: "124938968231",
+      appId: "1:124938968231:web:01f7e3fc88e2612b0d0f82"
+    };
+
+    // ✅ Khởi tạo Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // ✅ Gửi công thức lên Firestore
+    async function saveRecipe() {
+      const type = document.querySelector("select[name='type']").value;
+      const name = document.querySelector("input[name='recipeName']").value;
+      const prep = document.querySelector("input[name='timecb']").value;
+      const cook = document.querySelector("input[name='timenau']").value;
+      const ingredients = document.querySelector("textarea[name='ingridients']").value;
+      const instruction = document.querySelector("textarea[name='instruction']").value;
+
+      if (!name || !ingredients || !instruction) {
+        alert("⚠️ Vui lòng nhập đầy đủ thông tin");
+        return;
+      }
+
+      try {
+        await addDoc(collection(db, "recipes"), {
+          type, name, prep, cook, ingredients, instruction
+        });
+        alert("✅ Đã lưu công thức!");
+        loadRecipes(); // Tải lại danh sách
+      } catch (e) {
+        console.error("❌ Lỗi khi lưu:", e);
+        alert("Không thể lưu công thức!");
+      }
+    }
+
+    // ✅ Tải và hiển thị công thức đã lưu
+    async function loadRecipes() {
+      const list = document.getElementById("recipe-list");
+      list.innerHTML = "⏳ Đang tải...";
+
+      const querySnapshot = await getDocs(collection(db, "recipes"));
+      list.innerHTML = ""; // Xóa trước khi hiển thị
+
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        const div = document.createElement("div");
+        div.style.border = "1px solid #ccc";
+        div.style.margin = "10px 0";
+        div.style.padding = "10px";
+        div.innerHTML = `
+          <h3>${data.name} (${data.type})</h3>
+          <p><strong>Chuẩn bị:</strong> ${data.prep || 0} phút | <strong>Nấu:</strong> ${data.cook || 0} phút</p>
+          <p><strong>Nguyên liệu:</strong><br>${(data.ingredients || "").replace(/\n/g, "<br>")}</p>
+          <p><strong>Cách làm:</strong><br>${(data.instruction || "").replace(/\n/g, "<br>")}</p>
+        `;
+        list.appendChild(div);
+      });
+    }
+
+    // ✅ Chạy sau khi DOM sẵn sàng
+    window.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("saveBtn").addEventListener("click", saveRecipe);
+      loadRecipes(); // Tải danh sách ban đầu
+    });
+  </script>
+</head>
+<body>
+  <h1>🍲 Công thức món ăn</h1>
+  <div>
+    <label>Loại món:</label>
+    <select name="type">
+      <option value="Canh">Canh</option>
+      <option value="Mặn">Đồ mặn</option>
+      <option value="Xào">Đồ xào</option>
+      <option value="Nước">Món nước</option>
+      <option value="Tráng miệng">Tráng miệng</option>
+    </select><br><br>
+
+    <label>Tên món:</label>
+    <input type="text" name="recipeName" placeholder="Nhập tên món"><br><br>
+
+    <label>Thời gian chuẩn bị (phút):</label>
+    <input type="number" name="timecb"><br><br>
+
+    <label>Thời gian nấu (phút):</label>
+    <input type="number" name="timenau"><br><br>
+
+    <label>Nguyên liệu:</label><br>
+    <textarea name="ingridients" rows="4" cols="50" placeholder="100g thịt, 2 quả trứng..."></textarea><br><br>
+
+    <label>Cách làm:</label><br>
+    <textarea name="instruction" rows="4" cols="50" placeholder="Bước 1: ..."></textarea><br><br>
+
+    <button id="saveBtn">💾 Lưu công thức</button>
+  </div>
+
+  <hr>
+  <h2>📜 Danh sách công thức đã lưu:</h2>
+  <div id="recipe-list">⏳ Đang tải...</div>
+</body>
+</html>
