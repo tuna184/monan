@@ -1,0 +1,172 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-image: url('https://imgcdn.stablediffusionweb.com/2024/10/25/79e58c36-5565-44b5-985b-24dc17f61677.jpg'); /* đường dẫn ảnh */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* 👈 giữ ảnh cố định khi scroll */
+}
+hr {
+  display: none;
+}
+
+h2 {
+  display: inline-block;
+  margin: 30px auto;
+  text-align: center;
+  color: #6f41a0;
+  font-family: 'Patrick Hand', cursive;
+  font-size: 30px;
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 10px 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+}
+h1 {
+  display: inline-block;
+  margin: 40px auto;
+  text-align: center;
+  color: #6f41a0;
+  font-family: 'Patrick Hand', cursive;
+  font-size: 50px;
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 10px 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+}
+/* Gộp label + input/select cùng hàng */
+label, select, input[type="text"], input[type="number"], textarea {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Giảm chiều rộng input/select cho gọn lại */
+select {
+  width: 140px;
+  max-width: 100%;
+  padding: 8px 10px;
+  margin-left: 10px;
+  font-size: 20px;
+  font-family: 'Patrick Hand', cursive;
+  border: 2px solid #6f41a0; /* đổi viền thành tím */
+  border-radius: 10px;
+  background-color: #f3e9ff; /* nền nhạt tím */
+  box-sizing: border-box;
+}
+
+/* Điều chỉnh textarea cho dễ nhìn */
+textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 20px;
+  font-family: 'Patrick Hand', cursive;
+  border: 2px solid #6f41a0; /* viền tím */
+  border-radius: 10px;
+  background-color: #f3e9ff; /* nền nhạt tím */
+  box-sizing: border-box;
+}
+
+button#saveBtn {
+  margin-top: 22px;
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 20px;
+  font-family: 'Patrick Hand', cursive;
+  border: none;
+  border-radius: 14px;
+  background-color: #6f41a0; /* nền tím */
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+  box-shadow: 0 4px 10px rgba(111, 65, 160, 0.3); /* đổ bóng tím */
+}
+
+button#saveBtn:hover {
+  background-color: #5a3291; /* tím đậm hơn khi hover */
+  transform: scale(1.02);
+}
+input[type="number"] {
+  width: 80px;
+  max-width: 100%;
+  padding: 8px 10px;
+  margin-left: 10px;
+  font-size: 20px;
+  font-family: 'Patrick Hand', cursive;
+  border: 2px solid #6f41a0; /* đổi viền thành tím */
+  border-radius: 10px;
+  background-color: #f3e9ff; /* nền nhạt tím */
+  box-sizing: border-box;
+}
+input[type="text"]{
+  width: 350px;
+  max-width: 100%;
+  padding: 8px 10px;
+  margin-left: 10px;
+  font-size: 20px;
+  font-family: 'Patrick Hand', cursive;
+  border: 2px solid #6f41a0; /* đổi viền thành tím */
+  border-radius: 10px;
+  background-color: #f3e9ff; /* nền nhạt tím */
+  box-sizing: border-box;
+}
+.recipe-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  flex-wrap: nowrap; /* 👈 không cho xuống dòng */
+}
+
+
+.recipe-text {
+  flex: 1;
+}
+
+.recipe-img {
+  width: 300px !important;     /* ➜ rộng hơn */
+  height: 300px !important;    /* ➜ vuông khít */
+  object-fit: cover;
+  border-radius: 10px;
+  margin-left: 12px;    /* giữ khoảng cách với chữ */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+   aspect-ratio: 1 / 1;
+}
+
+.recipe-buttons {
+  margin-top: 10px;
+  display: flex;
+  gap: 12px;
+}
+
+.recipe-buttons button {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 18px;
+  padding: 6px 14px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.recipe-buttons button.edit {
+  background-color: #ffc107; /* vàng nhạt */
+  color: #333;
+}
+
+.recipe-buttons button.edit:hover {
+  background-color: #e0a800;
+}
+
+.recipe-buttons button.delete {
+  background-color: #dc3545; /* đỏ */
+  color: white;
+}
+
+.recipe-buttons button.delete:hover {
+  background-color: #bd2130;
+}
